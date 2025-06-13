@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../shared/Services/auth.service';
 import { SharedModule } from '../../../shared/shared.module';
+//import Logo from 'src/Logo_Nexora.png';
 
 @Component({
   selector: 'app-login',

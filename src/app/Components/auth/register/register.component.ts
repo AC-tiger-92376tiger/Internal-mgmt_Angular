@@ -18,7 +18,8 @@ export class RegisterComponent {
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      passwordconfirm: ['', Validators.required]
     });
   }
   login() {
@@ -26,12 +27,18 @@ export class RegisterComponent {
   }
   register() {
     if (this.registerForm.invalid) return;
-
+    if (this.registerForm.value.password !== this.registerForm.value.passwordconfirm) {
+    
+      this.error = 'Passwords do not match.';
+      this.message = '';
+      return;
+    }
     this.authService.register(this.registerForm.value).subscribe({
       next: () => {
         this.message = 'Registration successful!';
         this.error = '';
-        this.registerForm.reset();
+        //this.registerForm.reset();
+        this.router.navigate(['/login']);
 
       },
       error: (err) => {
