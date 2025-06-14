@@ -4,6 +4,7 @@ import { RegisterComponent } from './Components/auth/register/register.component
 import { StartComponent } from './Components/Start/start.component';
 import { TaskComponent } from './Components/task/task.component';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
+import { UsersComponent } from './Components/users/users.component';
 
 export const routes: Routes = [
         { path: 'login', component: LoginComponent },
@@ -11,6 +12,8 @@ export const routes: Routes = [
         { path: 'start', component:StartComponent},
         { path: 'tasks', component: TaskComponent },
         { path: 'dashboard', component: DashboardComponent },
+        { path: 'users', component: UsersComponent },
+        
         { path: '**', redirectTo: 'start' }
       
 ];
