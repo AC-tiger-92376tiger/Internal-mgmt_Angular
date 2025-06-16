@@ -5,16 +5,13 @@ import { SharedModule } from '../../shared/shared.module';
 import { ComponentFactoryResolver } from '@angular/core';
 import { AdduserComponent } from '../adduser/adduser.component';
 import { ViewChild, ViewContainerRef } from '@angular/core';
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  role: string;
-  status: 'Active' | 'Inactive';
-}
+import { UserService } from '../../shared/Services/user.service';
+import { UserModel } from '../../shared/models/usermodel.model';
+
 
 @Component({
   selector: 'app-users',
+  standalone: true,
   imports: [SharedModule],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
@@ -23,22 +20,23 @@ interface User {
 
 
 export class UsersComponent implements OnInit {
-  users: User[] = [];
-  filteredUsers: User[] = [];
+  users: UserModel[] = [];
+  filteredUsers: UserModel[] = [];
   searchTerm = '';
   @ViewChild('main', { read: ViewContainerRef }) mainContainer!: ViewContainerRef;
   
-  constructor( private resolver: ComponentFactoryResolver ) { }
+  constructor( private resolver: ComponentFactoryResolver, private userService: UserService ) { }
 
   ngOnInit(): void {
-    this.users = [
-      { id: 1, name: 'Alice Johnson', email: 'alice@example.com', role: 'Admin', status: 'Active' },
-      { id: 2, name: 'Bob Smith', email: 'bob@example.com', role: 'User', status: 'Inactive' },
-      { id: 3, name: 'Carol Lee', email: 'carol@example.com', role: 'Manager', status: 'Active' },
-    ];
-    this.filteredUsers = [...this.users];
+    this.loadUsers();
+    //this.filteredUsers = [...this.users];
   }
-
+  ngAfterViewInit(): void {
+    //this.loadUsers();
+  }
+  loadUsers() {
+    this.userService.getUsers().subscribe(data => this.users = data);
+  }
   loadAddUserComponent(): void {
     const factory = this.resolver.resolveComponentFactory(AdduserComponent);
     const componentRef = this.mainContainer.createComponent(factory);
@@ -73,11 +71,12 @@ export class UsersComponent implements OnInit {
 
   searchUsers() {
     const term = this.searchTerm.toLowerCase();
+    /*
     this.filteredUsers = this.users.filter(user =>
       user.name.toLowerCase().includes(term) ||
       user.email.toLowerCase().includes(term) ||
       user.role.toLowerCase().includes(term)
-    );
+    );*/
   }
 
   deleteUser(id: number) {

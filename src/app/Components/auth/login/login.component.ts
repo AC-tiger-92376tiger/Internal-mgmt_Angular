@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../shared/Services/auth.service';
 import { SharedModule } from '../../../shared/shared.module';
+import { UserModel } from '../../../shared/models/usermodel.model';
 //import Logo from 'src/Logo_Nexora.png';
 
 @Component({
@@ -13,9 +14,15 @@ import { SharedModule } from '../../../shared/shared.module';
 })
 export class LoginComponent {
   loginForm;
+  loginuser: UserModel= { id: 0, email: '', passwordHash: '', username: '', role: '' };
   error = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private authservice: AuthService
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -27,11 +34,16 @@ export class LoginComponent {
   login() {
     if (this.loginForm.invalid) return;
 
+    console.log(this.loginForm.value);
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);
+        this.loginuser = res.loginuser;
+        console.log(this.loginuser);
         this.error = '';
-        this.router.navigate(['/dashboard']);
+        this.authService.setLoginUser(this.loginuser);
+
+        this.router.navigate(['/dashboard']); 
       },
       error: () => {
         this.error = 'Invalid email or password.';

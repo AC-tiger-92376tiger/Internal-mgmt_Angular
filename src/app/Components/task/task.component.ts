@@ -11,7 +11,7 @@ import { SharedModule } from '../../shared/shared.module';
 })
 export class TaskComponent implements OnInit {
   tasks: Task[] = [];
-  newTask: Task = { title: '', description: '', status: 'Pending' };
+  newTask: Task = { title: '', description: '', status: 1 };
   editingTask: Task | null = null;
 
   constructor(private taskService: TaskService) {}
@@ -21,13 +21,13 @@ export class TaskComponent implements OnInit {
   }
 
   loadTasks() {
-    this.taskService.getTasks().subscribe(data => this.tasks = data);
+  //  this.taskService.getTasks().subscribe(data => this.tasks = data);
   }
-
+  
   createTask() {
     this.taskService.createTask(this.newTask).subscribe(() => {
       this.loadTasks();
-      this.newTask = { title: '', description: '', status: 'Pending' };
+      this.newTask = { title: '', description: '', status: 1 };
     });
   }
 

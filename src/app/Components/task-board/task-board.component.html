@@ -1,35 +1,29 @@
-<main class="p-6 bg-gray-100 min-h-screen">
+<main class="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
     <h2 class="text-2xl font-bold mb-6">Task Board</h2>
   
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <!-- To Do Column -->
-      <div class="bg-white rounded shadow p-4 flex flex-col">
+      <div  class="bg-white dark:bg-gray-800 rounded shadow p-4 flex flex-col">
         <h3 class="text-lg font-semibold mb-4">📝 To Do</h3>
   
         <!-- Task Card -->
-        <div class="bg-gray-50 border rounded p-3 mb-3">
-          <h4 class="font-medium">Design login UI</h4>
-          <div class="text-sm text-gray-600">Due: Jun 15</div>
-          <div class="text-xs mt-1">👤 Alice | 🔴 High</div>
-        </div>
-  
-        <div class="bg-gray-50 border rounded p-3 mb-3">
-          <h4 class="font-medium">Set up project repo</h4>
-          <div class="text-sm text-gray-600">Due: Jun 17</div>
-          <div class="text-xs mt-1">👤 Bob | 🟡 Medium</div>
+        <div *ngFor="let task of ToDoTasks" class="bg-gray-50 border rounded p-3 mb-3">
+          <h4 class="font-medium text-gray-900 dark:text-gray-100">{{task.title}}</h4>
+          <div class="text-sm dark:text-gray-400 text-gray-600">{{task.dueDate}}</div>
+          <div class="text-xs mt-1 text-gray-500 dark:text-gray-300">👤 {{task.userId || 'Unknown'}} | 🔴 {{task.priority}}</div>
         </div>
   
         <button class="mt-auto text-blue-600 text-sm">+ Add Task</button>
       </div>
   
       <!-- In Progress Column -->
-      <div class="bg-white rounded shadow p-4 flex flex-col">
+      <div  class="bg-white rounded shadow p-4 flex flex-col">
         <h3 class="text-lg font-semibold mb-4">🚧 In Progress</h3>
   
-        <div class="bg-gray-50 border rounded p-3 mb-3">
-          <h4 class="font-medium">Implement auth API</h4>
-          <div class="text-sm text-gray-600">Due: Jun 18</div>
-          <div class="text-xs mt-1">👤 Carol | 🟡 Medium</div>
+        <div *ngFor="let task of InProgressTasks" class="bg-gray-50 border rounded p-3 mb-3">
+          <h4 class="font-medium">{{task.title}}</h4>
+          <div class="text-sm text-gray-600">{{task.dueDate}}</div>
+          <div class="text-xs mt-1">👤 {{task.userId}} | 🟡 {{task.priority}} </div>
         </div>
   
         <button class="mt-auto text-blue-600 text-sm">+ Add Task</button>
@@ -39,10 +33,10 @@
       <div class="bg-white rounded shadow p-4 flex flex-col">
         <h3 class="text-lg font-semibold mb-4">✅ Done</h3>
   
-        <div class="bg-gray-50 border rounded p-3 mb-3 line-through opacity-70">
-          <h4 class="font-medium">Setup PostgreSQL</h4>
-          <div class="text-sm text-gray-600">Completed</div>
-          <div class="text-xs mt-1">👤 Dave | 🟢 Low</div>
+        <div *ngFor="let task of DoneTasks" class="bg-gray-50 border rounded p-3 mb-3 line-through opacity-70">
+          <h4 class="font-medium">{{task.title}}</h4>
+          <div class="text-sm text-gray-600">{{task.dueDate}}</div>
+          <div class="text-xs mt-1">👤 {{task.userId}} | 🟢 {{task.priority}}</div>
         </div>
   
         <button class="mt-auto text-blue-600 text-sm">+ Add Task</button>
