@@ -36,7 +36,7 @@ export class TaskBoardComponent {
         this.taskService.getTasks().subscribe(
           data => {
             this.tasks = data;
-            //console.log(this.tasks);  
+            console.log(this.tasks);  
             for (const task of this.tasks) {
               if (task.status === 1) {
                   this.ToDoTasks.push(task);
@@ -51,4 +51,9 @@ export class TaskBoardComponent {
         );   
         
     }
+}
+export enum TaskPriority {
+  Low = '🟢',
+  Medium = '🟡',
+  High = '🔴'
 }

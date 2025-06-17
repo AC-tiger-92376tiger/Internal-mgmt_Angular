@@ -19,13 +19,13 @@ export class AuthService {
     console.log(data);
     return this.http.post(`${this.baseUrl}/login`, data);
   }
-  private loginuser: any = null;
+  //private loginuser: any = null;
 
-  setLoginUser(user: any): void {
-    this.loginuser = user;
-  }
+  // setLoginUser(user: any): void {
+  //   this.loginuser = user;
+  // }
 
-  getLoginUser(): any {
-    return this.loginuser;
-  }
+  // getLoginUser(): any {
+  //   return this.loginuser;
+  // }
 }

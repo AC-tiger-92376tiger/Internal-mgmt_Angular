@@ -14,7 +14,7 @@ import { UserModel } from '../../../shared/models/usermodel.model';
 })
 export class LoginComponent {
   loginForm;
-  loginuser: UserModel= { id: 0, email: '', passwordHash: '', username: '', role: '' };
+  //loginuser: UserModel= { id: 0, email: '', passwordHash: '', username: '', role: '' };
   error = '';
 
   constructor(
@@ -38,10 +38,12 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);
-        this.loginuser = res.loginuser;
-        console.log(this.loginuser);
+        localStorage.setItem('loggedIn', JSON.stringify(res.loginuser));
+
+        //this.loginuser = res.loginuser;
+        //console.log(this.loginuser);
         this.error = '';
-        this.authService.setLoginUser(this.loginuser);
+        //this.authService.setLoginUser(this.loginuser);
 
         this.router.navigate(['/dashboard']); 
       },

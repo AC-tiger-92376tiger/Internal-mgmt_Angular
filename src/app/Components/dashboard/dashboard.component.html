@@ -5,13 +5,13 @@
   <aside class="w-64 bg-white border-r p-4">
     <div class="text-xl font-bold mb-6">IMP</div>
     <nav class="space-y-2">
-      <a (click)="loadChartComponent()" class="block p-2 rounded hover:bg-gray-100">🏠 Dashboard</a>
-      <a (click)="loadUsersComponent()" class="block p-2 rounded hover:bg-gray-100">👥 Users</a>
-      <a href="#" class="block p-2 rounded hover:bg-gray-100">🏢 Departments</a>
-      <a (click)="loadTaskComponent()" class="block p-2 rounded hover:bg-gray-100">📋 Tasks</a>
-      <a href="#" class="block p-2 rounded hover:bg-gray-100">🗂 Files</a>
-      <a href="#" class="block p-2 rounded hover:bg-gray-100">📅 Calendar</a>
-      <a href="#" class="block p-2 rounded hover:bg-gray-100">⚙️ Settings</a>
+      <a (click)="loadChartComponent()" class="block p-2 rounded dark:hover:bg-gray-800 hover:bg-gray-100">🏠 Dashboard</a>
+      <a (click)="loadUsersComponent()" class="block p-2 rounded dark:hover:bg-gray-800 hover:bg-gray-100">👥 Users</a>
+      <a href="#" class="block p-2 rounded dark:hover:bg-gray-800 hover:bg-gray-100">🏢 Departments</a>
+      <a (click)="loadTaskComponent()" class="block p-2 rounded dark:hover:bg-gray-800 hover:bg-gray-100">📋 Tasks</a>
+      <a href="#" class="block p-2 rounded dark:hover:bg-gray-800 hover:bg-gray-100">🗂 Files</a>
+      <a href="#" class="block p-2 rounded dark:hover:bg-gray-800 hover:bg-gray-100">📅 Calendar</a>
+      <a href="#" class="block p-2 rounded dark:hover:bg-gray-800 hover:bg-gray-100">⚙️ Settings</a>
     </nav>
   </aside>
 
@@ -24,7 +24,38 @@
       <div class="flex items-center gap-4">
         <button>🔔</button>
         <button (click)="toggleDarkMode()">🌓</button>
-        <div class="w-8 h-8 bg-gray-300 rounded-full"></div>
+        <div class="w-8 h-8 rounded-full profile-container"> 
+          <img
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            alt="Profile"
+            (click)="toggleDropdown()"
+            class="w-8 h-8 rounded-full cursor-pointer ring-2 ring-green-500"
+          />
+          <div
+            *ngIf="isOpen"
+            class="absolute right-0 mt-2 w-80 bg-gray-200 dark:bg-gray-800 dark:text-white rounded-xl shadow-lg z-50 p-6"
+          >
+            <div class="text-smdark:text-gray-400 mb-1 flex justify-center">{{loginuser.email}}</div>
+            <div class="flex flex-col items-center gap-2 text-center">
+              <div class="w-16 h-16 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
+                <span class="text-2xl">👤</span>
+              </div>
+              <div class="text-xl font-semibold">Hi, {{loginuser.username}}!</div>
+              <button class="mt-2 px-4 py-2 text-sm font-medium rounded-full dark:bg-gray-700 dark:hover:bg-gray-600 hover:bg-gray-300 transition">
+                Manage your Google Account
+              </button>
+            </div>
+
+            <div class="mt-6 border-t border-gray-700 dark:border-gray-700 pt-4 flex justify-between">
+              <button (click)="Addaccount()" class="text-sm hover:underline">➕ Add account</button>
+              <button (click)="OnSignOut()" class="text-sm hover:underline">⬅️ Sign out</button>
+            </div>
+
+            <div class="mt-4 text-xs dark:text-gray-500 text-center">
+              <a href="" class="hover:underline">Privacy Policy</a> · <a href="" class="hover:underline">Terms of Service</a>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
 

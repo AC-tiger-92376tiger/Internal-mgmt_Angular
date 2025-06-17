@@ -6,34 +6,28 @@ import { ChartComponent } from '../chart/chart.component';
 import { UsersComponent } from '../users/users.component';
 import { TaskBoardComponent } from '../task-board/task-board.component';
 import { AuthService } from '../../shared/Services/auth.service';
+import { HostListener } from '@angular/core';
+import { SharedModule } from '../../shared/shared.module';
+import { UserModel } from '../../shared/models/usermodel.model';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
+  imports: [SharedModule]
 
 })
 export class DashboardComponent implements OnInit {
   @ViewChild('main', { read: ViewContainerRef }) mainContainer!: ViewContainerRef;
-  loginuser: any =null;
+  loginuser: any=null; 
+  isOpen = false;
   constructor(
     private router:Router,
-    private resolver: ComponentFactoryResolver,
-    private authservice: AuthService
+    private resolver: ComponentFactoryResolver
   ) { }
 
 
   ngOnInit(): void {
-    //this.loadChartComponent();
-    this.checkToken();
-    /*
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras.state) {
-      this.loginuser = navigation.extras.state['loginuser'];
-    }
-      */
-    this.loginuser = this.authservice.getLoginUser();
-    console.log('Received loginuser:', this.loginuser);
-    
+    this.checkToken();    
   }
   ngAfterViewInit(): void {
     // Load the ChartComponent after ViewChild is initialized
@@ -43,16 +37,32 @@ export class DashboardComponent implements OnInit {
   }
 
   checkToken(): void {
+    
     const token = localStorage.getItem('token');
     if (token) {
-      
-      // Token exists, navigate to dashboard
-      
+      const loginpart = localStorage.getItem('loggedIn');
+      if(loginpart)
+      {
+        this.loginuser = JSON.parse(loginpart);
+      }
+            
     } else {
       this.router.navigate(['/login']);
     }
   }
 
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const clickedInside = target.closest('.profile-container');
+    if (!clickedInside) {
+      this.isOpen = false;
+    }
+  }
+
+  toggleDropdown(): void {
+    this.isOpen = !this.isOpen;
+  }
   toggleDarkMode(): void {
     const bodyElement = document.body; // Get the <html> element
     bodyElement.classList.toggle('dark'); // Toggle the 'dark' class
@@ -74,5 +84,11 @@ export class DashboardComponent implements OnInit {
     this.mainContainer.createComponent(factory); // Load TaskComponent
   }
   
-
+  OnSignOut(): void {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
+  Addaccount(): void{
+    this.router.navigate(['/register']);
+  }
 }

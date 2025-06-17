@@ -4,7 +4,12 @@ export interface Task {
     description?: string;
     dueDate?: Date;
     status?: number;
-    priority?: string;
+    priority?: TaskPriority;
     userId?: string;
+  }
+  export enum TaskPriority {
+    Low = '🟢',
+    Medium = '🟡',
+    High = '🔴'
   }
   

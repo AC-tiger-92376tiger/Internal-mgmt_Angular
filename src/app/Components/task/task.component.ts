@@ -11,7 +11,7 @@ import { SharedModule } from '../../shared/shared.module';
 })
 export class TaskComponent implements OnInit {
   tasks: Task[] = [];
-  newTask: Task = { title: '', description: '', status: 1 };
+  newTask: Task = { title: '', description: '', status: 1};
   editingTask: Task | null = null;
 
   constructor(private taskService: TaskService) {}
