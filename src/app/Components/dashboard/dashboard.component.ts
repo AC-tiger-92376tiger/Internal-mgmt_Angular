@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild('main', { read: ViewContainerRef }) mainContainer!: ViewContainerRef;
   loginuser: any=null; 
   isOpen = false;
+  isAdmin = false;
   constructor(
     private router:Router,
     private resolver: ComponentFactoryResolver
@@ -44,6 +45,12 @@ export class DashboardComponent implements OnInit {
       if(loginpart)
       {
         this.loginuser = JSON.parse(loginpart);
+        if(this.loginuser.role === "Admin")
+          {
+            this.isAdmin = true;
+          }
+       
+        
       }
             
     } else {

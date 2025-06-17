@@ -34,7 +34,7 @@ export class LoginComponent {
   login() {
     if (this.loginForm.invalid) return;
 
-    console.log(this.loginForm.value);
+    //console.log(this.loginForm.value);
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);

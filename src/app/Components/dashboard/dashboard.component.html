@@ -6,7 +6,7 @@
     <div class="text-xl font-bold mb-6">IMP</div>
     <nav class="space-y-2">
       <a (click)="loadChartComponent()" class="block p-2 rounded dark:hover:bg-gray-800 hover:bg-gray-100">🏠 Dashboard</a>
-      <a (click)="loadUsersComponent()" class="block p-2 rounded dark:hover:bg-gray-800 hover:bg-gray-100">👥 Users</a>
+      <a *ngIf="isAdmin" (click)="loadUsersComponent()" class="block p-2 rounded dark:hover:bg-gray-800 hover:bg-gray-100">👥 Users</a>
       <a href="#" class="block p-2 rounded dark:hover:bg-gray-800 hover:bg-gray-100">🏢 Departments</a>
       <a (click)="loadTaskComponent()" class="block p-2 rounded dark:hover:bg-gray-800 hover:bg-gray-100">📋 Tasks</a>
       <a href="#" class="block p-2 rounded dark:hover:bg-gray-800 hover:bg-gray-100">🗂 Files</a>
